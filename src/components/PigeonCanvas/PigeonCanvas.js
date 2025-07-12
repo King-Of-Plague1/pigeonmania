@@ -10,6 +10,18 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
     );
   }
 
+  const getColorFilter = (color) => {
+    if (!color) return 'none';
+    
+    // Преобразуем серый спрайт в цветной
+    return `
+      sepia(100%) 
+      hue-rotate(${color}deg) 
+      saturate(1.5) 
+      brightness(1.1)
+    `.replace(/\s+/g, ' ').trim();
+  };
+
   const renderElements = () => {
     if (!elements || elements.length === 0) {
       return null;
@@ -25,8 +37,9 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
           position: 'absolute',
           left: element.position.x,
           top: element.position.y,
-          filter: element.color ? `hue-rotate(${element.color}deg)` : 'none',
-          zIndex: 10
+          filter: getColorFilter(element.color),
+          zIndex: 10,
+          transition: 'filter 0.3s ease'
         }}
       />
     ));
@@ -62,17 +75,40 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
   };
 
   const getCanvasInfo = () => {
-    const info = [`Текущее базовое тело: ${baseBody.name}`];
+    const info = [`Базовое тело: ${baseBody.name}`];
+    
+    if (baseBody.color) {
+      const colorName = getColorName(parseInt(baseBody.color));
+      info.push(`🎨 Цвет тела: ${colorName} (${baseBody.color}°)`);
+    } else {
+      info.push(`⚪ Цвет тела: исходный серый`);
+    }
     
     if (activeSegmentId && baseBody.segments && baseBody.segments[activeSegmentId]) {
-      info.push(`Активный сегмент: ${baseBody.segments[activeSegmentId].name}`);
+      info.push(`🎯 Активный сегмент: ${baseBody.segments[activeSegmentId].name}`);
     }
     
     if (elements && elements.length > 0) {
-      info.push(`Декоративных элементов: ${elements.length}`);
+      info.push(`✨ Декоративных элементов: ${elements.length}`);
+      
+      const coloredElements = elements.filter(el => el.color);
+      if (coloredElements.length > 0) {
+        info.push(`🌈 Окрашенных элементов: ${coloredElements.length}`);
+      }
     }
     
     return info;
+  };
+
+  const getColorName = (hue) => {
+    if (hue >= 0 && hue < 30) return 'Красный';
+    if (hue >= 30 && hue < 60) return 'Оранжевый';
+    if (hue >= 60 && hue < 90) return 'Желтый';
+    if (hue >= 90 && hue < 150) return 'Зеленый';
+    if (hue >= 150 && hue < 210) return 'Голубой';
+    if (hue >= 210 && hue < 270) return 'Синий';
+    if (hue >= 270 && hue < 330) return 'Фиолетовый';
+    return 'Пурпурный';
   };
 
   return (
@@ -83,6 +119,10 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
             src={baseBody.sprite}
             alt={baseBody.name}
             className="base-body"
+            style={{
+              filter: getColorFilter(baseBody.color),
+              transition: 'filter 0.3s ease'
+            }}
           />
           {renderSegmentHighlights()}
           {renderElements()}

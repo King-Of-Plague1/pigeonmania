@@ -1,36 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import PigeonCanvas from '../PigeonCanvas/PigeonCanvas';
 import BodySelector from '../BodySelector/BodySelector';
 import SegmentPanel from '../SegmentPanel/SegmentPanel';
 import ElementPanel from '../ElementPanel/ElementPanel';
+import ColorManager from '../ColorManager/ColorManager';
 import spritesConfig from '../../config/sprites.json';
+import './App.css';
+
 
 function App() {
-  const [configuration, setConfiguration] = useState({
-    baseBodyId: 'body1',
-    elements: []
-  });
-  
-  const [baseBodies, setBaseBodies] = useState({});
-  const [decorativeElements, setDecorativeElements] = useState({});
+  const [selectedBodyId, setSelectedBodyId] = useState(null);
   const [activeSegmentId, setActiveSegmentId] = useState(null);
+  const [elements, setElements] = useState([]);
+  const [baseBodyColor, setBaseBodyColor] = useState(null);
 
+  // Инициализация с первым доступным телом
   useEffect(() => {
-    // Загружаем конфигурацию спрайтов
-    setBaseBodies(spritesConfig.baseBodies);
-    setDecorativeElements(spritesConfig.decorativeElements);
+    const firstBodyId = Object.keys(spritesConfig.baseBodies)[0];
+    if (firstBodyId) {
+      setSelectedBodyId(firstBodyId);
+    }
   }, []);
 
+  const currentBody = selectedBodyId ? spritesConfig.baseBodies[selectedBodyId] : null;
+  const availableSegments = currentBody?.segments || {};
+
   const handleBodySelect = (bodyId) => {
-    setConfiguration(prev => ({
-      ...prev,
-      baseBodyId: bodyId,
-      // Сбрасываем элементы при смене базового тела
-      elements: []
-    }));
-    // Сбрасываем активный сегмент
+    setSelectedBodyId(bodyId);
     setActiveSegmentId(null);
+    setElements([]);
+    setBaseBodyColor(null);
   };
 
   const handleSegmentSelect = (segmentId) => {
@@ -38,104 +37,99 @@ function App() {
   };
 
   const handleElementAdd = (elementId) => {
-    if (!activeSegmentId) return;
+    if (!activeSegmentId || !currentBody) return;
 
-    const decorativeElement = decorativeElements[elementId];
+    const decorativeElement = spritesConfig.decorativeElements[elementId];
     if (!decorativeElement) return;
 
-    const baseBody = getCurrentBaseBody();
-    if (!baseBody || !baseBody.segments[activeSegmentId]) return;
+    const segment = currentBody.segments[activeSegmentId];
+    if (!segment) return;
 
-    // Проверяем, нет ли уже этого элемента на сегменте
-    const existingElement = configuration.elements.find(
-      el => el.spriteId === elementId && el.segmentId === activeSegmentId
-    );
-    
-    if (existingElement) return;
+    // Проверяем, что элемент этого типа еще не добавлен
+    const elementExists = elements.some(el => el.spriteId === elementId);
+    if (elementExists) return;
 
-    const attachmentPoint = baseBody.segments[activeSegmentId].attachmentPoint;
-    
     const newElement = {
       id: `${elementId}-${Date.now()}`,
       segmentId: activeSegmentId,
       spriteId: elementId,
-      sprite: decorativeElement.sprite,
       name: decorativeElement.name,
-      color: null,
-      position: {
-        x: attachmentPoint.x,
-        y: attachmentPoint.y
-      }
+      sprite: decorativeElement.sprite,
+      position: segment.attachmentPoint,
+      color: null
     };
 
-    setConfiguration(prev => ({
-      ...prev,
-      elements: [...prev.elements, newElement]
-    }));
+    setElements(prev => [...prev, newElement]);
   };
 
   const handleElementRemove = (elementId) => {
-    if (!activeSegmentId) return;
-
-    setConfiguration(prev => ({
-      ...prev,
-      elements: prev.elements.filter(
-        element => !(element.spriteId === elementId && element.segmentId === activeSegmentId)
-      )
-    }));
+    setElements(prev => prev.filter(el => el.spriteId !== elementId));
   };
 
-  const getCurrentBaseBody = () => {
-    return baseBodies[configuration.baseBodyId];
+  const handleBaseBodyColorChange = (color) => {
+    setBaseBodyColor(color);
   };
 
-  const getCurrentSegments = () => {
-    const baseBody = getCurrentBaseBody();
-    return baseBody ? baseBody.segments : {};
+  const handleElementColorChange = (elementId, color) => {
+    setElements(prev => prev.map(element => 
+      element.id === elementId 
+        ? { ...element, color }
+        : element
+    ));
   };
 
-  const getCurrentSegmentElements = () => {
-    if (!activeSegmentId) return [];
+  const getBaseBodyWithColor = () => {
+    if (!currentBody) return null;
     
-    return configuration.elements.filter(
-      element => element.segmentId === activeSegmentId
-    );
+    return {
+      ...currentBody,
+      color: baseBodyColor
+    };
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <div className="app-header">
-        <h1>Конструктор голубей</h1>
+        <h1>🐦 Конструктор голубей</h1>
+        <p>Создайте уникального голубя с помощью декоративных элементов и цветов</p>
       </div>
       
       <div className="app-content">
         <div className="controls-panel">
           <BodySelector
-            baseBodies={baseBodies}
-            selectedBodyId={configuration.baseBodyId}
+            baseBodies={spritesConfig.baseBodies}
+            selectedBodyId={selectedBodyId}
             onBodySelect={handleBodySelect}
           />
           
           <SegmentPanel
-            segments={getCurrentSegments()}
+            segments={availableSegments}
             activeSegmentId={activeSegmentId}
             onSegmentSelect={handleSegmentSelect}
           />
           
           <ElementPanel
-            decorativeElements={decorativeElements}
+            decorativeElements={spritesConfig.decorativeElements}
             activeSegmentId={activeSegmentId}
             onElementAdd={handleElementAdd}
             onElementRemove={handleElementRemove}
-            currentElements={getCurrentSegmentElements()}
+            currentElements={elements}
           />
         </div>
         
-        <div className="canvas-container">
+        <div className="canvas-panel">
           <PigeonCanvas
-            baseBody={getCurrentBaseBody()}
-            elements={configuration.elements}
+            baseBody={getBaseBodyWithColor()}
+            elements={elements}
             activeSegmentId={activeSegmentId}
+          />
+          
+          <ColorManager
+            baseBody={getBaseBodyWithColor()}
+            activeSegmentId={activeSegmentId}
+            currentElements={elements}
+            onBaseBodyColorChange={handleBaseBodyColorChange}
+            onElementColorChange={handleElementColorChange}
           />
         </div>
       </div>

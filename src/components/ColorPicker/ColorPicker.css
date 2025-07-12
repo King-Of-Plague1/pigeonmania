@@ -1,0 +1,135 @@
+.color-picker {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-picker h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.color-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+
+.color-wheel-container {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.color-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 200px;
+}
+
+.color-wheel {
+  border-radius: 50%;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.1s ease;
+  background: #f8f9fa;
+}
+
+.color-wheel:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.color-wheel:active {
+  transform: scale(0.98);
+}
+
+.color-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.current-color {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 2px solid #dee2e6;
+  background: linear-gradient(45deg, 
+    #ff0000 0%, 
+    #ff7f00 14%, 
+    #ffff00 28%, 
+    #7fff00 42%, 
+    #00ff00 57%, 
+    #00ff7f 71%, 
+    #00ffff 85%, 
+    #0080ff 100%);
+  background-size: 100% 100%;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.color-value {
+  font-size: 14px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.color-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.reset-button {
+  padding: 8px 16px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-button:hover:not(:disabled) {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.reset-button:disabled {
+  background: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.reset-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .color-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .color-details {
+    min-width: auto;
+    width: 100%;
+  }
+}
