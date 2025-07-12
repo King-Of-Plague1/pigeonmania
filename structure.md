@@ -3,6 +3,10 @@
 ```
 pigeonmania/
 ├── public
+│   ├── sprites
+│   │   └── base-bodies
+│   │       ├── body1.png
+│   │       └── body2.png
 │   ├── favicon.ico
 │   ├── index.html
 │   ├── logo192.png
@@ -10,11 +14,6 @@ pigeonmania/
 │   ├── manifest.json
 │   └── robots.txt
 ├── src
-│   ├── assets
-│   │   └── sprites
-│   │       └── base-bodies
-│   │           ├── body1.png
-│   │           └── body2.png
 │   ├── components
 │   │   ├── App
 │   │   │   ├── App.css
@@ -23,9 +22,12 @@ pigeonmania/
 │   │   ├── BodySelector
 │   │   │   ├── BodySelector.css
 │   │   │   └── BodySelector.js
-│   │   └── PigeonCanvas
-│   │       ├── PigeonCanvas.css
-│   │       └── PigeonCanvas.js
+│   │   ├── PigeonCanvas
+│   │   │   ├── PigeonCanvas.css
+│   │   │   └── PigeonCanvas.js
+│   │   └── SegmentPanel
+│   │       ├── SegmentPanel.css
+│   │       └── SegmentPanel.js
 │   ├── config
 │   │   └── sprites.json
 │   ├── index.css
