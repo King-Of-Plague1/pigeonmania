@@ -3,6 +3,7 @@ import './App.css';
 import PigeonCanvas from '../PigeonCanvas/PigeonCanvas';
 import BodySelector from '../BodySelector/BodySelector';
 import SegmentPanel from '../SegmentPanel/SegmentPanel';
+import ElementPanel from '../ElementPanel/ElementPanel';
 import spritesConfig from '../../config/sprites.json';
 
 function App() {
@@ -19,13 +20,6 @@ function App() {
     // Загружаем конфигурацию спрайтов
     setBaseBodies(spritesConfig.baseBodies);
     setDecorativeElements(spritesConfig.decorativeElements);
-    
-    // Устанавливаем первый сегмент как активный по умолчанию
-    const firstBody = Object.values(spritesConfig.baseBodies)[0];
-    if (firstBody && firstBody.segments) {
-      const firstSegment = Object.keys(firstBody.segments)[0];
-      setActiveSegmentId(firstSegment);
-    }
   }, []);
 
   const handleBodySelect = (bodyId) => {
@@ -35,19 +29,60 @@ function App() {
       // Сбрасываем элементы при смене базового тела
       elements: []
     }));
-    
-    // Сбрасываем активный сегмент при смене базового тела
-    const newBody = baseBodies[bodyId];
-    if (newBody && newBody.segments) {
-      const firstSegment = Object.keys(newBody.segments)[0];
-      setActiveSegmentId(firstSegment);
-    } else {
-      setActiveSegmentId(null);
-    }
+    // Сбрасываем активный сегмент
+    setActiveSegmentId(null);
   };
 
   const handleSegmentSelect = (segmentId) => {
     setActiveSegmentId(segmentId);
+  };
+
+  const handleElementAdd = (elementId) => {
+    if (!activeSegmentId) return;
+
+    const decorativeElement = decorativeElements[elementId];
+    if (!decorativeElement) return;
+
+    const baseBody = getCurrentBaseBody();
+    if (!baseBody || !baseBody.segments[activeSegmentId]) return;
+
+    // Проверяем, нет ли уже этого элемента на сегменте
+    const existingElement = configuration.elements.find(
+      el => el.spriteId === elementId && el.segmentId === activeSegmentId
+    );
+    
+    if (existingElement) return;
+
+    const attachmentPoint = baseBody.segments[activeSegmentId].attachmentPoint;
+    
+    const newElement = {
+      id: `${elementId}-${Date.now()}`,
+      segmentId: activeSegmentId,
+      spriteId: elementId,
+      sprite: decorativeElement.sprite,
+      name: decorativeElement.name,
+      color: null,
+      position: {
+        x: attachmentPoint.x,
+        y: attachmentPoint.y
+      }
+    };
+
+    setConfiguration(prev => ({
+      ...prev,
+      elements: [...prev.elements, newElement]
+    }));
+  };
+
+  const handleElementRemove = (elementId) => {
+    if (!activeSegmentId) return;
+
+    setConfiguration(prev => ({
+      ...prev,
+      elements: prev.elements.filter(
+        element => !(element.spriteId === elementId && element.segmentId === activeSegmentId)
+      )
+    }));
   };
 
   const getCurrentBaseBody = () => {
@@ -57,6 +92,14 @@ function App() {
   const getCurrentSegments = () => {
     const baseBody = getCurrentBaseBody();
     return baseBody ? baseBody.segments : {};
+  };
+
+  const getCurrentSegmentElements = () => {
+    if (!activeSegmentId) return [];
+    
+    return configuration.elements.filter(
+      element => element.segmentId === activeSegmentId
+    );
   };
 
   return (
@@ -77,6 +120,14 @@ function App() {
             segments={getCurrentSegments()}
             activeSegmentId={activeSegmentId}
             onSegmentSelect={handleSegmentSelect}
+          />
+          
+          <ElementPanel
+            decorativeElements={decorativeElements}
+            activeSegmentId={activeSegmentId}
+            onElementAdd={handleElementAdd}
+            onElementRemove={handleElementRemove}
+            currentElements={getCurrentSegmentElements()}
           />
         </div>
         

@@ -32,13 +32,13 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
     ));
   };
 
-  const renderSegmentHighlight = () => {
+  const renderSegmentHighlights = () => {
     if (!activeSegmentId || !baseBody.segments) {
       return null;
     }
 
-    const segment = baseBody.segments[activeSegmentId];
-    if (!segment || !segment.highlightArea) {
+    const activeSegment = baseBody.segments[activeSegmentId];
+    if (!activeSegment || !activeSegment.highlightArea) {
       return null;
     }
 
@@ -47,13 +47,13 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
         className="segment-highlight"
         style={{
           position: 'absolute',
-          left: segment.highlightArea.x,
-          top: segment.highlightArea.y,
-          width: segment.highlightArea.width,
-          height: segment.highlightArea.height,
+          left: activeSegment.highlightArea.x,
+          top: activeSegment.highlightArea.y,
+          width: activeSegment.highlightArea.width,
+          height: activeSegment.highlightArea.height,
+          background: 'rgba(0, 123, 255, 0.2)',
           border: '2px dashed #007bff',
           borderRadius: '4px',
-          backgroundColor: 'rgba(0, 123, 255, 0.1)',
           zIndex: 5,
           pointerEvents: 'none'
         }}
@@ -61,13 +61,18 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
     );
   };
 
-  const getActiveSegmentName = () => {
-    if (!activeSegmentId || !baseBody.segments) {
-      return null;
+  const getCanvasInfo = () => {
+    const info = [`Текущее базовое тело: ${baseBody.name}`];
+    
+    if (activeSegmentId && baseBody.segments && baseBody.segments[activeSegmentId]) {
+      info.push(`Активный сегмент: ${baseBody.segments[activeSegmentId].name}`);
     }
     
-    const segment = baseBody.segments[activeSegmentId];
-    return segment ? segment.name : null;
+    if (elements && elements.length > 0) {
+      info.push(`Декоративных элементов: ${elements.length}`);
+    }
+    
+    return info;
   };
 
   return (
@@ -79,15 +84,14 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
             alt={baseBody.name}
             className="base-body"
           />
-          {renderSegmentHighlight()}
+          {renderSegmentHighlights()}
           {renderElements()}
         </div>
       </div>
       <div className="canvas-info">
-        <p>Текущее базовое тело: {baseBody.name}</p>
-        {getActiveSegmentName() && (
-          <p>Активный сегмент: {getActiveSegmentName()}</p>
-        )}
+        {getCanvasInfo().map((info, index) => (
+          <p key={index}>{info}</p>
+        ))}
       </div>
     </div>
   );

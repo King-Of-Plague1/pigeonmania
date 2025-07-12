@@ -11,13 +11,13 @@
           "icon": "🐦",
           "attachmentPoint": {
             "x": 120,
-            "y": 80
+            "y": 60
           },
           "highlightArea": {
             "x": 100,
-            "y": 60,
-            "width": 60,
-            "height": 60
+            "y": 40,
+            "width": 80,
+            "height": 80
           }
         },
         "wing": {
@@ -26,20 +26,20 @@
           "icon": "🪶",
           "attachmentPoint": {
             "x": 80,
-            "y": 140
+            "y": 120
           },
           "highlightArea": {
             "x": 60,
-            "y": 120,
-            "width": 80,
-            "height": 50
+            "y": 100,
+            "width": 100,
+            "height": 80
           }
         }
       }
     },
     "body2": {
       "id": "body2",
-      "name": "Пухлый голубь",
+      "name": "Городской голубь",
       "sprite": "/sprites/base-bodies/body2.png",
       "segments": {
         "head": {
@@ -47,14 +47,14 @@
           "name": "Голова",
           "icon": "🐦",
           "attachmentPoint": {
-            "x": 130,
-            "y": 70
+            "x": 110,
+            "y": 55
           },
           "highlightArea": {
-            "x": 110,
-            "y": 50,
-            "width": 70,
-            "height": 65
+            "x": 90,
+            "y": 35,
+            "width": 75,
+            "height": 75
           }
         },
         "wing": {
@@ -62,47 +62,43 @@
           "name": "Крыло",
           "icon": "🪶",
           "attachmentPoint": {
-            "x": 90,
-            "y": 150
+            "x": 75,
+            "y": 115
           },
           "highlightArea": {
-            "x": 70,
-            "y": 130,
-            "width": 85,
-            "height": 55
+            "x": 55,
+            "y": 95,
+            "width": 95,
+            "height": 75
           }
         }
       }
     }
   },
   "decorativeElements": {
-    "head": {
-      "crown": {
-        "id": "crown",
-        "name": "Корона",
-        "sprite": "/sprites/decorative/head/crown.png",
-        "segmentType": "head"
-      },
-      "hat": {
-        "id": "hat",
-        "name": "Шляпа",
-        "sprite": "/sprites/decorative/head/hat.png",
-        "segmentType": "head"
-      }
+    "crown": {
+      "id": "crown",
+      "name": "Корона",
+      "sprite": "/sprites/decorative/crown.png",
+      "segmentType": "head"
     },
-    "wing": {
-      "feathers": {
-        "id": "feathers",
-        "name": "Перья",
-        "sprite": "/sprites/decorative/wing/feathers.png",
-        "segmentType": "wing"
-      },
-      "ribbon": {
-        "id": "ribbon",
-        "name": "Лента",
-        "sprite": "/sprites/decorative/wing/ribbon.png",
-        "segmentType": "wing"
-      }
+    "hat": {
+      "id": "hat",
+      "name": "Шляпа",
+      "sprite": "/sprites/decorative/hat.png",
+      "segmentType": "head"
+    },
+    "bow": {
+      "id": "bow",
+      "name": "Бантик",
+      "sprite": "/sprites/decorative/bow.png",
+      "segmentType": "wing"
+    },
+    "ribbon": {
+      "id": "ribbon",
+      "name": "Лента",
+      "sprite": "/sprites/decorative/ribbon.png",
+      "segmentType": "wing"
     }
   }
 }

@@ -4,9 +4,14 @@
 pigeonmania/
 ├── public
 │   ├── sprites
-│   │   └── base-bodies
-│   │       ├── body1.png
-│   │       └── body2.png
+│   │   ├── base-bodies
+│   │   │   ├── body1.png
+│   │   │   └── body2.png
+│   │   └── decorative
+│   │       ├── bow.png
+│   │       ├── crown.png
+│   │       ├── hat.png
+│   │       └── ribbon.png
 │   ├── favicon.ico
 │   ├── index.html
 │   ├── logo192.png
@@ -22,6 +27,9 @@ pigeonmania/
 │   │   ├── BodySelector
 │   │   │   ├── BodySelector.css
 │   │   │   └── BodySelector.js
+│   │   ├── ElementPanel
+│   │   │   ├── ElementPanel.css
+│   │   │   └── ElementPanel.js
 │   │   ├── PigeonCanvas
 │   │   │   ├── PigeonCanvas.css
 │   │   │   └── PigeonCanvas.js
