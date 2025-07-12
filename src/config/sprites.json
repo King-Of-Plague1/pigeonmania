@@ -1,0 +1,72 @@
+{
+  "baseBodies": {
+    "body1": {
+      "id": "body1",
+      "name": "Классический голубь",
+              "sprite": "/sprites/base-bodies/body1.png",
+      "segments": {
+        "head": {
+          "id": "head",
+          "name": "Голова",
+          "attachmentPoints": [
+            { "x": 120, "y": 80 }
+          ]
+        },
+        "wing": {
+          "id": "wing",
+          "name": "Крыло",
+          "attachmentPoints": [
+            { "x": 180, "y": 150 }
+          ]
+        }
+      }
+    },
+    "body2": {
+      "id": "body2",
+      "name": "Пухлый голубь",
+              "sprite": "/sprites/base-bodies/body2.png",
+      "segments": {
+        "head": {
+          "id": "head",
+          "name": "Голова",
+          "attachmentPoints": [
+            { "x": 110, "y": 70 }
+          ]
+        },
+        "wing": {
+          "id": "wing",
+          "name": "Крыло",
+          "attachmentPoints": [
+            { "x": 170, "y": 140 }
+          ]
+        }
+      }
+    }
+  },
+  "decorativeElements": {
+    "head": {
+      "hat1": {
+        "id": "hat1",
+        "name": "Шляпа",
+        "sprite": "/sprites/decorative/head/hat1.png"
+      },
+      "bow1": {
+        "id": "bow1",
+        "name": "Бант",
+        "sprite": "/sprites/decorative/head/bow1.png"
+      }
+    },
+    "wing": {
+      "pattern1": {
+        "id": "pattern1",
+        "name": "Узор",
+        "sprite": "/sprites/decorative/wing/pattern1.png"
+      },
+      "feather1": {
+        "id": "feather1",
+        "name": "Перо",
+        "sprite": "/assets/sprites/decorative/wing/feather1.png"
+      }
+    }
+  }
+}

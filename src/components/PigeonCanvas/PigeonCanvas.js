@@ -1,16 +1,51 @@
 import React from 'react';
 import './PigeonCanvas.css';
-import body1 from '../../assets/sprites/base-bodies/body1.png';
 
-const PigeonCanvas = () => {
+const PigeonCanvas = ({ baseBody, elements }) => {
+  if (!baseBody) {
+    return (
+      <div className="pigeon-canvas">
+        <div className="loading">Загрузка...</div>
+      </div>
+    );
+  }
+
+  const renderElements = () => {
+    if (!elements || elements.length === 0) {
+      return null;
+    }
+
+    return elements.map((element, index) => (
+      <img
+        key={`${element.id}-${index}`}
+        src={element.sprite}
+        alt={element.name}
+        className="decorative-element"
+        style={{
+          position: 'absolute',
+          left: element.position.x,
+          top: element.position.y,
+          filter: element.color ? `hue-rotate(${element.color}deg)` : 'none',
+          zIndex: 10
+        }}
+      />
+    ));
+  };
+
   return (
     <div className="pigeon-canvas">
-      <div className="pigeon-container">
-        <img 
-          src={body1} 
-          alt="Pigeon base body" 
-          className="base-body"
-        />
+      <div className="canvas-area">
+        <div className="base-body-container">
+          <img
+            src={baseBody.sprite}
+            alt={baseBody.name}
+            className="base-body"
+          />
+          {renderElements()}
+        </div>
+      </div>
+      <div className="canvas-info">
+        <p>Текущее базовое тело: {baseBody.name}</p>
       </div>
     </div>
   );

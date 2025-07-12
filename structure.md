@@ -2,9 +2,6 @@
 
 ```
 pigeonmania/
-├── pigeonmania
-│   └── src
-│       └── index.js
 ├── public
 │   ├── favicon.ico
 │   ├── index.html
@@ -16,23 +13,29 @@ pigeonmania/
 │   ├── assets
 │   │   └── sprites
 │   │       └── base-bodies
-│   │           └── body1.png
+│   │           ├── body1.png
+│   │           └── body2.png
 │   ├── components
 │   │   ├── App
 │   │   │   ├── App.css
 │   │   │   ├── App.js
 │   │   │   └── logo.svg
+│   │   ├── BodySelector
+│   │   │   ├── BodySelector.css
+│   │   │   └── BodySelector.js
 │   │   └── PigeonCanvas
 │   │       ├── PigeonCanvas.css
 │   │       └── PigeonCanvas.js
+│   ├── config
+│   │   └── sprites.json
 │   ├── index.css
 │   └── index.js
 ├── .gitignore
 ├── generate-tree.js
 ├── package-lock.json
 ├── package.json
-├── PROJECT_STRUCTURE.md
 ├── README.md
+├── structure.md
 ├── tree.js
 └── WORKFLOW.md
 ```
