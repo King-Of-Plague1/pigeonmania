@@ -1,0 +1,166 @@
+.import-export {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.import-export h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.config-info {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.config-summary {
+  font-size: 14px;
+  color: #333;
+}
+
+.config-summary strong {
+  color: #495057;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.config-summary ul {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.config-summary li {
+  margin: 4px 0;
+  color: #6c757d;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.export-button,
+.import-button {
+  flex: 1;
+  min-width: 140px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.export-button {
+  background: #28a745;
+  color: white;
+}
+
+.export-button:hover:not(:disabled) {
+  background: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+.export-button:disabled {
+  background: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.import-button {
+  background: #007bff;
+  color: white;
+}
+
+.import-button:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.import-button:disabled {
+  background: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.format-info {
+  border-top: 1px solid #e9ecef;
+  padding-top: 15px;
+}
+
+.format-info details {
+  cursor: pointer;
+}
+
+.format-info summary {
+  color: #6c757d;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 0;
+  user-select: none;
+  outline: none;
+}
+
+.format-info summary:hover {
+  color: #007bff;
+}
+
+.format-details {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 12px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #495057;
+}
+
+.format-details p {
+  margin: 0 0 8px 0;
+}
+
+.format-details ul {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+
+.format-details li {
+  margin: 4px 0;
+}
+
+.format-details strong {
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .export-button,
+  .import-button {
+    min-width: auto;
+  }
+}

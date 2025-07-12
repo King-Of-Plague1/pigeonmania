@@ -27,6 +27,12 @@ pigeonmania/
 │   │   ├── BodySelector
 │   │   │   ├── BodySelector.css
 │   │   │   └── BodySelector.js
+│   │   ├── ColorManager
+│   │   │   ├── ColorManager.css
+│   │   │   └── ColorManager.js
+│   │   ├── ColorPicker
+│   │   │   ├── ColorPicker.css
+│   │   │   └── ColorPicker.js
 │   │   ├── ElementPanel
 │   │   │   ├── ElementPanel.css
 │   │   │   └── ElementPanel.js

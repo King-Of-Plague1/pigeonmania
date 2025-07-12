@@ -39,7 +39,44 @@
     },
     "body2": {
       "id": "body2",
-      "name": "Городской голубь",
+      "name": "Худощавый голубь",
+      "sprite": "/sprites/base-bodies/body2.png",
+      "segments": {
+        "head": {
+          "id": "head",
+          "name": "Голова",
+          "icon": "🐦",
+          "attachmentPoint": {
+            "x": 110,
+            "y": 55
+          },
+          "highlightArea": {
+            "x": 90,
+            "y": 35,
+            "width": 75,
+            "height": 75
+          }
+        },
+        "wing": {
+          "id": "wing",
+          "name": "Крыло",
+          "icon": "🪶",
+          "attachmentPoint": {
+            "x": 75,
+            "y": 115
+          },
+          "highlightArea": {
+            "x": 55,
+            "y": 95,
+            "width": 95,
+            "height": 75
+          }
+        }
+      }
+    },
+    "body3": {
+      "id": "body3",
+      "name": "Пухлый голубь",
       "sprite": "/sprites/base-bodies/body2.png",
       "segments": {
         "head": {

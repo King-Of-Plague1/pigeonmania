@@ -4,15 +4,17 @@ import BodySelector from '../BodySelector/BodySelector';
 import SegmentPanel from '../SegmentPanel/SegmentPanel';
 import ElementPanel from '../ElementPanel/ElementPanel';
 import ColorManager from '../ColorManager/ColorManager';
+import ImportExport from '../ImportExport/ImportExport';
+import ErrorNotification from '../ErrorNotification/ErrorNotification';
 import spritesConfig from '../../config/sprites.json';
 import './App.css';
-
 
 function App() {
   const [selectedBodyId, setSelectedBodyId] = useState(null);
   const [activeSegmentId, setActiveSegmentId] = useState(null);
   const [elements, setElements] = useState([]);
   const [baseBodyColor, setBaseBodyColor] = useState(null);
+  const [importError, setImportError] = useState(null);
 
   // Инициализация с первым доступным телом
   useEffect(() => {
@@ -78,12 +80,90 @@ function App() {
     ));
   };
 
+  const handleConfigurationImport = (config) => {
+    try {
+      // Проверяем, что базовое тело существует
+      if (!spritesConfig.baseBodies[config.baseBodyId]) {
+        setImportError({
+          type: 'validation',
+          message: 'Базовое тело не найдено',
+          details: [`Базовое тело с ID "${config.baseBodyId}" не существует в текущей конфигурации`]
+        });
+        return;
+      }
+
+      // Проверяем элементы
+      const validElements = [];
+      const invalidElements = [];
+
+      config.elements.forEach(element => {
+        const decorativeElement = spritesConfig.decorativeElements[element.spriteId];
+        const body = spritesConfig.baseBodies[config.baseBodyId];
+        const segment = body?.segments[element.segmentId];
+
+        if (!decorativeElement) {
+          invalidElements.push(`Декоративный элемент "${element.spriteId}" не найден`);
+          return;
+        }
+
+        if (!segment) {
+          invalidElements.push(`Сегмент "${element.segmentId}" не найден для базового тела`);
+          return;
+        }
+
+        validElements.push({
+          ...element,
+          name: decorativeElement.name,
+          sprite: decorativeElement.sprite
+        });
+      });
+
+      if (invalidElements.length > 0) {
+        setImportError({
+          type: 'validation',
+          message: 'Некоторые элементы конфигурации недоступны',
+          details: invalidElements
+        });
+        return;
+      }
+
+      // Применяем конфигурацию
+      setSelectedBodyId(config.baseBodyId);
+      setElements(validElements);
+      setBaseBodyColor(config.baseBodyColor || null);
+      setActiveSegmentId(null);
+
+    } catch (error) {
+      setImportError({
+        type: 'unknown',
+        message: 'Ошибка применения конфигурации',
+        details: [error.message]
+      });
+    }
+  };
+
+  const handleImportError = (error) => {
+    setImportError(error);
+  };
+
+  const handleErrorClose = () => {
+    setImportError(null);
+  };
+
   const getBaseBodyWithColor = () => {
     if (!currentBody) return null;
     
     return {
       ...currentBody,
       color: baseBodyColor
+    };
+  };
+
+  const getCurrentConfiguration = () => {
+    return {
+      baseBodyId: selectedBodyId,
+      elements,
+      baseBodyColor
     };
   };
 
@@ -115,6 +195,12 @@ function App() {
             onElementRemove={handleElementRemove}
             currentElements={elements}
           />
+
+          <ImportExport
+            currentConfiguration={getCurrentConfiguration()}
+            onConfigurationImport={handleConfigurationImport}
+            onImportError={handleImportError}
+          />
         </div>
         
         <div className="canvas-panel">
@@ -133,6 +219,11 @@ function App() {
           />
         </div>
       </div>
+
+      <ErrorNotification
+        error={importError}
+        onClose={handleErrorClose}
+      />
     </div>
   );
 }
