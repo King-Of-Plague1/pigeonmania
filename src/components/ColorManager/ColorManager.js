@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import OpacityPicker from '../OpacityPicker/OpacityPicker';
+import BrightnessPicker from '../BrightnessPicker/BrightnessPicker';
 import './ColorManager.css';
+
 
 const getColorFilter = (color) => {
     if (!color) return 'none';
@@ -19,10 +22,15 @@ const ColorManager = ({
   activeSegmentId,
   currentElements,
   onBaseBodyColorChange,
-  onElementColorChange
+  onBaseBodyBrightnessChange,
+  onElementColorChange,
+  onElementOpacityChange,
+  onElementBrightnessChange,
 }) => {
   const [colorTarget, setColorTarget] = useState(null); // 'baseBody' или elementId
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedOpacity, setSelectedOpacity] = useState(null);
+  const [selectedBrightness, setSelectedBrightness] = useState(1.0);
 
   const handleTargetSelect = (target) => {
     setColorTarget(target);
@@ -33,6 +41,19 @@ const ColorManager = ({
     } else {
       const element = currentElements.find(el => el.id === target);
       setSelectedColor(element?.color || null);
+    }
+
+    if (target === 'baseBody') {
+      setSelectedOpacity(1.0);
+    } else {
+      const element = currentElements.find(el => el.id === target);
+      setSelectedOpacity(element?.opacity ?? 1.0);
+    }
+    if (target === 'baseBody') {
+      setSelectedBrightness(baseBody?.brightness ?? 1.0); // теперь управляем телом
+    } else {
+      const element = currentElements.find(el => el.id === target);
+      setSelectedBrightness(element?.brightness ?? 1.0);
     }
   };
 
@@ -53,6 +74,40 @@ const ColorManager = ({
       onBaseBodyColorChange(null);
     } else if (colorTarget) {
       onElementColorChange(colorTarget, null);
+    }
+  };
+
+  const handleOpacityChange = (opacity) => {
+    setSelectedOpacity(opacity);
+    if (colorTarget && colorTarget !== 'baseBody') {
+      onElementOpacityChange(colorTarget, opacity);
+    }
+  };
+
+  const handleOpacityReset = () => {
+    setSelectedOpacity(1.0);
+    if (colorTarget && colorTarget !== 'baseBody') {
+      onElementOpacityChange(colorTarget, 1.0);
+    }
+  };
+
+  const handleBrightnessChange = (value) => {
+  setSelectedBrightness(value);
+  if (colorTarget === 'baseBody') {
+    onBaseBodyBrightnessChange(value);
+  }
+  if (colorTarget && colorTarget !== 'baseBody') {
+      onElementBrightnessChange(colorTarget, value);
+    }
+  };
+
+  const handleBrightnessReset = () => {
+    setSelectedBrightness(1.0);
+    if (colorTarget === 'baseBody') {
+      onBaseBodyBrightnessChange(1.0);
+    }
+    if (colorTarget && colorTarget !== 'baseBody') {
+      onElementBrightnessChange(colorTarget, 1.0);
     }
   };
 
@@ -133,6 +188,18 @@ const ColorManager = ({
         selectedColor={selectedColor}
         onColorChange={handleColorChange}
         onColorReset={handleColorReset}
+        isVisible={!!colorTarget}
+      />
+      <OpacityPicker
+        selectedOpacity={selectedOpacity}
+        onOpacityChange={handleOpacityChange}
+        onOpacityReset={handleOpacityReset}
+        isVisible={!!colorTarget && colorTarget !== 'baseBody'}
+      />
+      <BrightnessPicker
+        selectedBrightness={selectedBrightness}
+        onBrightnessChange={handleBrightnessChange}
+        onBrightnessReset={handleBrightnessReset}
         isVisible={!!colorTarget}
       />
     </div>

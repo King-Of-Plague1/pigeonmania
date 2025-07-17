@@ -14,6 +14,7 @@ function App() {
   const [activeSegmentId, setActiveSegmentId] = useState(null);
   const [elements, setElements] = useState([]);
   const [baseBodyColor, setBaseBodyColor] = useState(null);
+  const [baseBodyBrightness, setBaseBodyBrightness] = useState(1.0);
   const [importError, setImportError] = useState(null);
 
   // Инициализация с первым доступным телом
@@ -32,6 +33,7 @@ function App() {
     setActiveSegmentId(null);
     setElements([]);
     setBaseBodyColor(null);
+    setBaseBodyBrightness(1.0);
   };
 
   const handleSegmentSelect = (segmentId) => {
@@ -58,7 +60,9 @@ function App() {
       name: decorativeElement.name,
       sprite: decorativeElement.sprite,
       position: segment.attachmentPoint,
-      color: null
+      color: null,
+      opacity: 1.0,
+      brightness: 1.0
     };
 
     setElements(prev => [...prev, newElement]);
@@ -72,11 +76,31 @@ function App() {
     setBaseBodyColor(color);
   };
 
+  const handleBaseBodyBrightnessChange = (brightness) => {
+    setBaseBodyBrightness(brightness);
+  };
+
   const handleElementColorChange = (elementId, color) => {
     setElements(prev => prev.map(element => 
       element.id === elementId 
         ? { ...element, color }
         : element
+    ));
+  };
+
+  const handleElementOpacityChange = (elementId, opacity) => {
+  setElements(prev => prev.map(element =>
+    element.id === elementId
+      ? { ...element, opacity }
+      : element
+    ));
+  };
+
+  const handleElementBrightnessChange = (elementId, brightness) => {
+  setElements(prev => prev.map(element =>
+    element.id === elementId
+      ? { ...element, brightness }
+      : element
     ));
   };
 
@@ -150,12 +174,13 @@ function App() {
     setImportError(null);
   };
 
-  const getBaseBodyWithColor = () => {
+  const getBaseBodyWithStyle = () => {
     if (!currentBody) return null;
     
     return {
       ...currentBody,
-      color: baseBodyColor
+      color: baseBodyColor,
+      brightness: baseBodyBrightness
     };
   };
 
@@ -205,17 +230,20 @@ function App() {
         
         <div className="canvas-panel">
           <PigeonCanvas
-            baseBody={getBaseBodyWithColor()}
+            baseBody={getBaseBodyWithStyle()}
             elements={elements}
             activeSegmentId={activeSegmentId}
           />
           
           <ColorManager
-            baseBody={getBaseBodyWithColor()}
+            baseBody={getBaseBodyWithStyle()}
             activeSegmentId={activeSegmentId}
             currentElements={elements}
             onBaseBodyColorChange={handleBaseBodyColorChange}
+            onBaseBodyBrightnessChange={handleBaseBodyBrightnessChange}
             onElementColorChange={handleElementColorChange}
+            onElementOpacityChange={handleElementOpacityChange}
+            onElementBrightnessChange={handleElementBrightnessChange}
           />
         </div>
       </div>

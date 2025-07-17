@@ -1,0 +1,23 @@
+.brightness-picker {
+  margin-top: 16px;
+}
+
+.brightness-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.reset-button {
+  padding: 6px 12px;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.reset-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

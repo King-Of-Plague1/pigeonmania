@@ -10,7 +10,7 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
     );
   }
 
-  const getColorFilter = (color) => {
+  const getColorFilter = (color, brightness = 1) => {
     if (!color) return 'none';
     
     // Преобразуем серый спрайт в цветной
@@ -18,7 +18,7 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
       sepia(100%) 
       hue-rotate(${color}deg) 
       saturate(1.5) 
-      brightness(1.1)
+      brightness(${brightness})
     `.replace(/\s+/g, ' ').trim();
   };
 
@@ -37,9 +37,10 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
           position: 'absolute',
           left: element.position.x,
           top: element.position.y,
-          filter: getColorFilter(element.color),
+          filter: getColorFilter(element.color, element.brightness ?? 1),
+          opacity: element.opacity ?? 1.0, // <--- добавлено
           zIndex: 10,
-          transition: 'filter 0.3s ease'
+          transition: 'filter 0.3s ease, opacity 0.3s ease'
         }}
       />
     ));
@@ -110,7 +111,7 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
     if (hue >= 270 && hue < 330) return 'Фиолетовый';
     return 'Пурпурный';
   };
-
+  console.log('Base body brightness:', baseBody.brightness);
   return (
     <div className="pigeon-canvas">
       <div className="canvas-area">
@@ -120,7 +121,7 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
             alt={baseBody.name}
             className="base-body"
             style={{
-              filter: getColorFilter(baseBody.color),
+              filter: getColorFilter(baseBody.color, baseBody.brightness ?? 1),
               transition: 'filter 0.3s ease'
             }}
           />
