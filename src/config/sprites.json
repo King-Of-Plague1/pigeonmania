@@ -10,12 +10,12 @@
           "name": "Голова",
           "icon": "🐦",
           "attachmentPoint": {
-            "x": 235,
-            "y": 142
+            "x": 176,
+            "y": 112
           },
           "highlightArea": {
-            "x": 173,
-            "y": 95,
+            "x": 114,
+            "y": 65,
             "width": 124,
             "height": 95
           }
@@ -25,12 +25,12 @@
           "name": "Крыло",
           "icon": "🪶",
           "attachmentPoint": {
-            "x": 169,
-            "y": 268
+            "x": 150,
+            "y": 201
           },
           "highlightArea": {
-            "x": 84,
-            "y": 227,
+            "x": 65,
+            "y": 160,
             "width": 170,
             "height": 82
           }
@@ -48,12 +48,12 @@
           "name": "Голова",
           "icon": "🐦",
           "attachmentPoint": {
-            "x": 221,
-            "y": 136
+            "x": 171,
+            "y": 113
           },
           "highlightArea": {
-            "x": 183,
-            "y": 98,
+            "x": 134,
+            "y": 76,
             "width": 75,
             "height": 75
           }
@@ -63,12 +63,12 @@
           "name": "Крыло",
           "icon": "🪶",
           "attachmentPoint": {
-            "x": 172,
-            "y": 263
+            "x": 153,
+            "y": 214
           },
           "highlightArea": {
-            "x": 87.5,
-            "y": 224,
+            "x": 69,
+            "y": 176,
             "width": 168,
             "height": 77
           }
@@ -86,12 +86,12 @@
           "name": "Голова",
           "icon": "🐦",
           "attachmentPoint": {
-            "x": 227,
-            "y": 186.5
+            "x": 174,
+            "y": 146
           },
           "highlightArea": {
-            "x": 178,
-            "y": 151,
+            "x": 125,
+            "y": 110,
             "width": 98,
             "height": 71
           }
@@ -101,12 +101,12 @@
           "name": "Крыло",
           "icon": "🪶",
           "attachmentPoint": {
-            "x": 166,
-            "y": 285
+            "x": 131,
+            "y": 223
           },
           "highlightArea": {
-            "x": 100,
-            "y": 234,
+            "x": 66,
+            "y": 172,
             "width": 131,
             "height": 102
           }
