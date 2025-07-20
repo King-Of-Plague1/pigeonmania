@@ -70,3 +70,12 @@ JSON файл с метаданными спрайтов
 2 типа декоративных элементов для головы
 2 типа декоративных элементов для крыла
 Конфигурационный файл с координатами размещения
+## Deployment to GitHub Pages
+
+1. Ensure the `gh-pages` package is installed (`npm install --save-dev gh-pages`).
+2. Set the `homepage` field in `package.json` to `https://<your-github-username>.github.io/pigeonmania`.
+3. Use the predefined scripts:
+   ```bash
+   npm run deploy
+   ```
+   This builds the project and publishes the `build` directory to the `gh-pages` branch.
