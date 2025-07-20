@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pigeonmania/static/css/main.62abdd23.css",
+    "main.js": "/pigeonmania/static/js/main.27997bf0.js",
+    "index.html": "/pigeonmania/index.html",
+    "main.62abdd23.css.map": "/pigeonmania/static/css/main.62abdd23.css.map",
+    "main.27997bf0.js.map": "/pigeonmania/static/js/main.27997bf0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62abdd23.css",
+    "static/js/main.27997bf0.js"
+  ]
+}
