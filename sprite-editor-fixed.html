@@ -898,10 +898,11 @@
                 
                 // Позиционируем маркер в центре области подсветки, если она есть
                 if (segment.highlightArea) {
-                    const centerX = segment.highlightArea.x + segment.highlightArea.width / 2;
-                    const centerY = segment.highlightArea.y + segment.highlightArea.height / 2;
                     marker.style.left = segment.attachmentPoint.x + 'px';
-                    marker.style.top = segment.attachmentPoint.y + 'px';
+marker.style.top = segment.attachmentPoint.y + 'px';
+                    
+                    // Обновляем attachmentPoint чтобы он совпадал с центром
+                    
                 } else {
                     marker.style.left = segment.attachmentPoint.x + 'px';
                     marker.style.top = segment.attachmentPoint.y + 'px';
@@ -943,11 +944,8 @@
                 
                 // Обновляем область подсветки, если она есть
                 if (segment.highlightArea) {
-                    const halfWidth = segment.highlightArea.width / 2;
-                    const halfHeight = segment.highlightArea.height / 2;
-                    
-                    segment.highlightArea.x = centerX - halfWidth;
-                    segment.highlightArea.y = centerY - halfHeight;
+  segment.highlightArea.x = Math.round(segment.attachmentPoint.x);
+  segment.highlightArea.y = Math.round(segment.attachmentPoint.y);
                     
                     // Обновляем отображение области
                     const highlight = document.querySelector(`[data-segment-id="${segment.id}"].highlight-area`);
@@ -1258,8 +1256,7 @@
             segment.highlightArea.y = centerY - newHeight / 2;
             
             // Обновляем attachmentPoint (должен остаться в центре)
-            segment.attachmentPoint.x = centerX;
-            segment.attachmentPoint.y = centerY;
+            
             
             // Обновляем отображение значений
             document.getElementById('segmentWidthValue').textContent = newWidth + 'px';
@@ -1289,8 +1286,7 @@
             segment.highlightArea.y = centerY - 40;
             
             // Обновляем attachmentPoint (должен остаться в центре)
-            segment.attachmentPoint.x = centerX;
-            segment.attachmentPoint.y = centerY;
+            
             
             updateSegmentScaleControls();
             renderBodyCanvas(body);

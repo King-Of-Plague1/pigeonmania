@@ -115,16 +115,20 @@ const PigeonCanvas = ({ baseBody, elements, activeSegmentId }) => {
   return (
     <div className="pigeon-canvas">
       <div className="canvas-area">
-        <div className="base-body-container">
+        <div className="base-body-container" style={{ transform: `scale(${baseBody.scale ?? 1})`, transformOrigin: "top left" }}>
           <img
             src={baseBody.sprite}
             alt={baseBody.name}
             className="base-body"
             style={{
               filter: getColorFilter(baseBody.color, baseBody.brightness ?? 1),
-              transition: 'filter 0.3s ease',
+              transition: "filter 0.3s ease",
               transform: `scale(${baseBody.scale ?? 1})`,
-              transformOrigin: 'top left'
+              transformOrigin: "top left"
+            }}
+            style={{
+              filter: getColorFilter(baseBody.color, baseBody.brightness ?? 1),
+              transition: 'filter 0.3s ease'
             }}
           />
           {renderSegmentHighlights()}

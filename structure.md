@@ -27,6 +27,9 @@ pigeonmania/
 │   │   ├── BodySelector
 │   │   │   ├── BodySelector.css
 │   │   │   └── BodySelector.js
+│   │   ├── BrightnessPicker
+│   │   │   ├── BrightnessPicker.css
+│   │   │   └── BrightnessPicker.js
 │   │   ├── ColorManager
 │   │   │   ├── ColorManager.css
 │   │   │   └── ColorManager.js
@@ -36,6 +39,15 @@ pigeonmania/
 │   │   ├── ElementPanel
 │   │   │   ├── ElementPanel.css
 │   │   │   └── ElementPanel.js
+│   │   ├── ErrorNotification
+│   │   │   ├── ErrorNotification.css
+│   │   │   └── ErrorNotification.js
+│   │   ├── ImportExport
+│   │   │   ├── ImportExport.css
+│   │   │   └── ImportExport.js
+│   │   ├── OpacityPicker
+│   │   │   ├── OpacityPicker.css
+│   │   │   └── OpacityPicker.js
 │   │   ├── PigeonCanvas
 │   │   │   ├── PigeonCanvas.css
 │   │   │   └── PigeonCanvas.js
@@ -43,6 +55,7 @@ pigeonmania/
 │   │       ├── SegmentPanel.css
 │   │       └── SegmentPanel.js
 │   ├── config
+│   │   ├── sprites_.json
 │   │   └── sprites.json
 │   ├── index.css
 │   └── index.js
@@ -51,6 +64,7 @@ pigeonmania/
 ├── package-lock.json
 ├── package.json
 ├── README.md
+├── sprite-editor.html
 ├── structure.md
 ├── tree.js
 └── WORKFLOW.md

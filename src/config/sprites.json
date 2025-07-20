@@ -3,19 +3,19 @@
     "body1": {
       "id": "body1",
       "name": "Классический голубь",
-      "sprite": "/sprites/base-bodies/body1.png",
+      "sprite": "sprites/base-bodies/body1.png",
       "segments": {
         "head": {
           "id": "head",
           "name": "Голова",
           "icon": "🐦",
           "attachmentPoint": {
-            "x": 233,
-            "y": 140
+            "x": 235,
+            "y": 142
           },
           "highlightArea": {
-            "x": 171,
-            "y": 93,
+            "x": 173,
+            "y": 95,
             "width": 124,
             "height": 95
           }
@@ -41,7 +41,7 @@
     "body2": {
       "id": "body2",
       "name": "Худощавый голубь",
-      "sprite": "/sprites/base-bodies/body2.png",
+      "sprite": "sprites/base-bodies/body2.png",
       "segments": {
         "head": {
           "id": "head",
@@ -79,7 +79,7 @@
     "body3": {
       "id": "body3",
       "name": "Пухлый голубь",
-      "sprite": "/sprites/base-bodies/body2.png",
+      "sprite": "sprites/base-bodies/body2.png",
       "segments": {
         "head": {
           "id": "head",
@@ -119,25 +119,25 @@
     "crown": {
       "id": "crown",
       "name": "Корона",
-      "sprite": "/sprites/decorative/crown.png",
+      "sprite": "sprites/decorative/crown.png",
       "segmentType": "head"
     },
     "hat": {
       "id": "hat",
       "name": "Шляпа",
-      "sprite": "/sprites/decorative/hat.png",
+      "sprite": "sprites/decorative/hat.png",
       "segmentType": "head"
     },
     "bow": {
       "id": "bow",
       "name": "Бантик",
-      "sprite": "/sprites/decorative/bow.png",
+      "sprite": "sprites/decorative/bow.png",
       "segmentType": "wing"
     },
     "ribbon": {
       "id": "ribbon",
       "name": "Лента",
-      "sprite": "/sprites/decorative/ribbon.png",
+      "sprite": "sprites/decorative/ribbon.png",
       "segmentType": "wing"
     }
   }
